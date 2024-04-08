@@ -11,6 +11,8 @@ BG_Color: str = "#000100100"
 Soft_Green_Background: str = "#000200200"
 Neon_Green: str = "#0f0"
 Black: str = "#000"
+Grey: str = "#100100100"
+
 
 def app() -> None:
     app = CT.CTk()
@@ -37,6 +39,21 @@ def app() -> None:
     Tabs.add("Verify")
     Tabs.add("Report")
 
+    class Frame():
+        Report_Frame_Left = CT.CTkFrame(master=Tabs.tab("Report"),
+                                        width=300,
+                                        height=500,
+                                        fg_color=f"{Soft_Green_Background}",
+                                        border_width=1,
+                                        border_color=f"{Neon_Green}")
+
+        Report_Frame_Right = CT.CTkFrame(master=Tabs.tab("Report"),
+                                         width=400,
+                                         height=500,
+                                         fg_color=f"{Soft_Green_Background}",
+                                         border_width=1,
+                                         border_color=f"{Neon_Green}")
+
     class Entrys():
         Link = CT.CTkEntry(master=app,
                            placeholder_text="Video Link",
@@ -57,6 +74,28 @@ def app() -> None:
                                     text_color=f"{Neon_Green}",
                                     hover_color=f"{Black}")
 
+        Report_Button = CT.CTkButton(master=Frame.Report_Frame_Left,
+                                     width=50,
+                                     height=25,
+                                     corner_radius=3,
+                                     fg_color="#c00",
+                                     text="Report",
+                                     text_color="#fff",
+                                     hover_color="#f00")
+
+    class Slider():
+        Threat_Level = CT.CTkSlider(master=Frame.Report_Frame_Right,
+                                    width=10,
+                                    height=300,
+                                    from_=0,
+                                    to=3,
+                                    number_of_steps=4,
+                                    fg_color="#000",
+                                    progress_color="#f00",
+                                    button_color="#fff",
+                                    orientation="vertical")
+        Threat_Level.set(0)
+
     class TextBox():
         Response_Panel = CT.CTkTextbox(master=Tabs.tab("Verify"),
                                        width=600,
@@ -65,13 +104,53 @@ def app() -> None:
                                        text_color=f"{Neon_Green}",
                                        state="disabled",
                                        wrap="none")
-# Render Widgets ==============================================================
 
-    Entrys.Link.pack(padx=10, pady=3)
+        Report_Message = CT.CTkTextbox(master=Frame.Report_Frame_Right,
+                                       width=600,
+                                       height=600,
+                                       fg_color=f"{Soft_Green_Background}",
+                                       text_color=f"{Neon_Green}",
+                                       wrap="none",
+                                       border_width=1,
+                                       border_color=f"{Neon_Green}")
+
+    class Switch():
+        Is_Scam = CT.CTkSwitch(master=Frame.Report_Frame_Left,
+                               width=30,
+                               height=15,
+                               fg_color=f"{Grey}",
+                               progress_color="#ff0",
+                               text="Is Scam?",
+                               text_color="#ff0",
+                               button_color="#fff")
+
+        Is_Malware = CT.CTkSwitch(master=Frame.Report_Frame_Left,
+                                  width=30,
+                                  height=15,
+                                  fg_color=f"{Grey}",
+                                  progress_color="#f00",
+                                  text="Is Malware?",
+                                  text_color="#f00",
+                                  button_color="#fff")
+
+# Render Widgets ==============================================================
+    Entrys.Link.pack(padx=3, pady=3, anchor="n", side="top")
     Tabs.pack(padx=3, pady=3)
+
+    # Verify tab widgets ======================================================
     Buttons.Verif_Button.pack(side="left", padx=10, pady=10, anchor="nw")
     TextBox.Response_Panel.pack(side="right", padx=10, pady=10, anchor="ne")
+
+    # Report tab widgets ======================================================
+    Frame.Report_Frame_Left.pack(padx=10, pady=10, anchor="nw", side="left")
+    Frame.Report_Frame_Right.pack(padx=10, pady=10, anchor="ne", side="right")
+    Buttons.Report_Button.pack(side="top", padx=10, pady=10, anchor="nw")
+    Slider.Threat_Level.pack(side="right", padx=10, pady=10, anchor="ne")
+    Switch.Is_Scam.pack(side="top", padx=10, pady=10, anchor="nw")
+    Switch.Is_Malware.pack(side="left", padx=10, pady=10, anchor="nw")
+    TextBox.Report_Message.pack(side="right", padx=0, pady=0, anchor="center")
     app.mainloop()
+
 
 def main() -> None:
     app()
