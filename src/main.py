@@ -1,14 +1,17 @@
 import customtkinter as CT
 import modules
-from threading import Thread
+import multiprocessing
+from time import sleep
 from modules.Server import Listen, ServerClose
 
 global Window_Width
 global Window_Height
-global Threat
+
 
 Window_Width = 720
 Window_Height = 356
+
+
 
 # Colors ====================================================================
 BG_Color: str = "#000100100"
@@ -16,19 +19,6 @@ Soft_Green_Background: str = "#000200200"
 Neon_Green: str = "#0f0"
 Black: str = "#000"
 Grey: str = "#100100100"
-
-
-# Backend Funcions ==========================================================
-class Server():
-    def Connect():
-        return Listen()
-
-    def Close():
-        return ServerClose()
-
-    def Start():
-        if Server.Connect():
-            Thread(target=Server.Close()).start()
 
 
 # User Interface ============================================================
@@ -42,7 +32,10 @@ class App(CT.CTk):
         self.minsize(Window_Width, Window_Height)
         self.maxsize(Window_Width, Window_Height)
 
-    # Widgets ===================================================================
+        global ListenerActive
+        ListenerActive = CT.StringVar(value="off")
+
+    # Widgets ================================================================
         self.Tabs = CT.CTkTabview(master=self,
                                   width=Window_Width,
                                   height=Window_Height-30,
@@ -116,7 +109,11 @@ class App(CT.CTk):
                                      progress_color=f"{Neon_Green}",
                                      button_color="#fff",
                                      text="Listener",
-                                     text_color="#fff")
+                                     text_color="#fff",
+                                     variable=ListenerActive,
+                                     command=ListenerState,
+                                     onvalue="on",
+                                     offvalue="off")
 
         self.Is_Scam = CT.CTkSwitch(master=self.Report_Frame_Left,
                                     width=30,
@@ -159,14 +156,14 @@ class App(CT.CTk):
                                           border_color="#f00",
                                           command=Report)
 
-        # Render Widgets ==============================================================
+        # Render Widgets ======================================================
         self.Top_Frame.place(x=1, y=1)
         self.Listener.place(x=1, y=1)
         self.Tabs.place(x=1, y=40)
 
-        # View tab widgets ======================================================
+        # View tab widgets ====================================================
         self.View_Panel.place(x=1, y=1)
-        # Report tab widgets ======================================================
+        # Report tab widgets ==================================================
         self.Report_Frame_Left.place(x=1, y=1)
         self.Report_Frame_Right.place(x=120, y=1)
         self.Report_Button.place(x=30, y=65)
@@ -179,6 +176,11 @@ class App(CT.CTk):
 def main() -> None:
     app = App()
     app.mainloop()
+
+
+# Backend Funcions ==========================================================
+def ListenerState() -> None:
+    print("Listener: ", ListenerActive.get())
 
 
 if __name__ == "__main__":
