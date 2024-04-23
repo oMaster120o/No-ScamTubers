@@ -13,10 +13,6 @@ def Listen() -> str:
     return server.handle_request()
 
 
-def ServerClose() -> None:
-    try:
-        server.shutdown_request()
-        return f"Port {PORT} Listener closed succesfully..."
-    except:
-        return f"Could not close the Port {PORT} Listener..."
-
+def StopListen() -> str:
+    print("Closing Listener...")
+    return server.shutdown()

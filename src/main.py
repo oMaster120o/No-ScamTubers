@@ -2,15 +2,13 @@ import customtkinter as CT
 import modules
 import multiprocessing
 from time import sleep
-from modules.Server import Listen, ServerClose
+from modules.Listener import Listen, StopListen
 
 global Window_Width
 global Window_Height
 
-
 Window_Width = 720
 Window_Height = 356
-
 
 
 # Colors ====================================================================
@@ -32,8 +30,8 @@ class App(CT.CTk):
         self.minsize(Window_Width, Window_Height)
         self.maxsize(Window_Width, Window_Height)
 
-        global ListenerActive
-        ListenerActive = CT.StringVar(value="off")
+        global ListenerSwitch
+        ListenerSwitch = CT.StringVar(value=False)
 
     # Widgets ================================================================
         self.Tabs = CT.CTkTabview(master=self,
@@ -110,10 +108,10 @@ class App(CT.CTk):
                                      button_color="#fff",
                                      text="Listener",
                                      text_color="#fff",
-                                     variable=ListenerActive,
+                                     variable=ListenerSwitch,
                                      command=ListenerState,
-                                     onvalue="on",
-                                     offvalue="off")
+                                     onvalue=True,
+                                     offvalue=False)
 
         self.Is_Scam = CT.CTkSwitch(master=self.Report_Frame_Left,
                                     width=30,
@@ -179,9 +177,32 @@ def main() -> None:
 
 
 # Backend Funcions ==========================================================
+def ListenerSwitcher(Enabled: str):
+    global ProcessListen
+    global ProcessListenerShutdown
+
+    if Enabled == "1":
+        ProcessListen.start()
+    else:
+        ProcessListenerShutdown.start()
+        sleep(1)
+        if ProcessListen.is_alive:
+            ProcessListen.terminate()
+
+        if ProcessListenerShutdown.is_alive():
+            ProcessListenerShutdown.terminate()
+
+# Those two are new processes that do the same thing as the ones above
+# But they are not the same, and shouldn't, unless you want to break it e-e ===
+        ProcessListen = multiprocessing.Process(target=Listen)
+        ProcessListenerShutdown = multiprocessing.Process(target=StopListen)
+
+
 def ListenerState() -> None:
-    print("Listener: ", ListenerActive.get())
+    ListenerSwitcher(ListenerSwitch.get())
 
 
 if __name__ == "__main__":
+    ProcessListen = multiprocessing.Process(target=Listen)
+    ProcessListenerShutdown = multiprocessing.Process(target=StopListen)
     main()
