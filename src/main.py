@@ -141,19 +141,20 @@ class App(CT.CTk):
 
 #https://www.youtube.com/watch?v=GOeKo-uioXc
         def Report() -> None:
-            URL: str = "https://www.youtube.com/watch?v=GOeKo-uioXc"
-         #URL: str = self.URL_Field.get()
+            URL: str = self.URL_Field.get()
+            URL: str = URL.strip()
 
             if URL.find("https://www.youtube.com/watch?v=") == 0:
                 print("Valid URL")
 
-                CH_ID, VID_ID = modules.GetChannel(URL)
+                CH_ID, VID_ID, CH_Name = modules.GetChannel(URL)
                 modules.ReportChannel(Channel_ID=CH_ID,
                                       Video_ID=VID_ID,
                                       Danger=self.Threat_Level.get(),
                                       Is_Scam=self.Is_Scam.get(),
                                       Is_Malware=self.Is_Malware.get(),
-                                      Message=self.Report_Message.get("1.1", CT.END))
+                                      Message=self.Report_Message.get("1.0", CT.END),
+                                      Channel_Name=CH_Name)
             else:
                 return print("Invalid URL")
 
