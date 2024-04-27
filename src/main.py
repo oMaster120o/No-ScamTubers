@@ -113,6 +113,14 @@ class App(CT.CTk):
                                      onvalue=True,
                                      offvalue=False)
 
+        self.URL_Field = CT.CTkEntry(master=self.Top_Frame,
+                                     width=615,
+                                     height=30,
+                                     fg_color=f"{Soft_Green_Background}",
+                                     text_color="#ff0",
+                                     border_width=1,
+                                     border_color="#ff0")
+
         self.Is_Scam = CT.CTkSwitch(master=self.Report_Frame_Left,
                                     width=30,
                                     height=15,
@@ -131,8 +139,23 @@ class App(CT.CTk):
                                        text_color="#f00",
                                        button_color="#fff")
 
+#https://www.youtube.com/watch?v=GOeKo-uioXc
         def Report() -> None:
-            print("EEEEEEEEEEEEEE")
+            URL: str = "https://www.youtube.com/watch?v=GOeKo-uioXc"
+         #URL: str = self.URL_Field.get()
+
+            if URL.find("https://www.youtube.com/watch?v=") == 0:
+                print("Valid URL")
+
+                CH_ID, VID_ID = modules.GetChannel(URL)
+                modules.ReportChannel(Channel_ID=CH_ID,
+                                      Video_ID=VID_ID,
+                                      Danger=self.Threat_Level.get(),
+                                      Is_Scam=self.Is_Scam.get(),
+                                      Is_Malware=self.Is_Malware.get(),
+                                      Message=self.Report_Message.get("1.1", CT.END))
+            else:
+                return print("Invalid URL")
 
         self.View_Button = CT.CTkButton(master=self.Top_Frame,
                                         width=50,
@@ -157,6 +180,7 @@ class App(CT.CTk):
         # Render Widgets ======================================================
         self.Top_Frame.place(x=1, y=1)
         self.Listener.place(x=1, y=1)
+        self.URL_Field.place(x=100, y=1)
         self.Tabs.place(x=1, y=40)
 
         # View tab widgets ====================================================
@@ -192,7 +216,7 @@ def ListenerSwitcher(Enabled: str):
         if ProcessListenerShutdown.is_alive():
             ProcessListenerShutdown.terminate()
 
-# Those two are new processes that do the same thing as the ones above
+# Those two are new processes that do the same thing as the ones in the global=
 # But they are not the same, and shouldn't, unless you want to break it e-e ===
         ProcessListen = multiprocessing.Process(target=Listen)
         ProcessListenerShutdown = multiprocessing.Process(target=StopListen)

@@ -1,2 +1,2 @@
-from modules.Report import Report
+from modules.Report import ReportChannel
 from modules.GetChannel import GetChannel

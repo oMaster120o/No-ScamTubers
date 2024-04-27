@@ -14,5 +14,5 @@ def Listen() -> str:
 
 
 def StopListen() -> str:
-    print("Closing Listener...")
+    print("Listener Closed\n")
     return server.shutdown()
