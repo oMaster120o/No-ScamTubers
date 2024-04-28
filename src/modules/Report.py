@@ -1,6 +1,7 @@
 import json
-from shutil import move
-from os import remove
+from os import remove, rename
+
+report_path: str = "./user/report/"
 
 
 def ReportChannel(Channel_ID: str,
@@ -22,10 +23,11 @@ def ReportChannel(Channel_ID: str,
             }
     with open(f"{Channel_Name}.json", "w") as report:
         json.dump(Report_File, report)
-        print("Report Created")
         report.close()
+
+    rename(f"./{Channel_Name}.json", f"{report_path}{Channel_Name}.json")
     try:
-        move(f"./{Channel_Name}.json", "./user/report/")
+        print("Report Created")
     except Exception:
         print(Exception, "This Report Already Exists\n")
         remove(f"./{Channel_Name}.json")

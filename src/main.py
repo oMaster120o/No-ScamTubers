@@ -139,7 +139,6 @@ class App(CT.CTk):
                                        text_color="#f00",
                                        button_color="#fff")
 
-#https://www.youtube.com/watch?v=GOeKo-uioXc
         def Report() -> None:
             URL: str = self.URL_Field.get()
             URL: str = URL.strip()

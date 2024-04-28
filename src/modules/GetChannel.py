@@ -9,14 +9,13 @@ def GetChannel(CH_URL: str):
     lines = name.split("\"", -1)
     response.close()
 
-# https://www.youtube.com/watch?v=GOeKo-uioXc
-# Channel id: UCJ4BgU996P32qwkUXN73drQ
     VID_ID: str = CH_URL.strip("https://www.youtube.com/watch?v=")
     CH_ID: str = ""
     CH_Name: str = ""
     print("Scanning URL")
+
     for Line in lines:
-        if CH_ID == "" and Line.find("/channel/") != -1:
+        if CH_ID == "" and Line.find("/channel/") != -1 and Line.find("/videos") != -1:
             CH_ID: str = Line
             for word in Replaces:
                 CH_ID: str = CH_ID.replace(word, "")
