@@ -85,10 +85,10 @@ class App(CT.CTk):
                                         width=700,
                                         height=270,
                                         fg_color=f"{Soft_Green_Background}",
-                                        text_color=f"{Neon_Green}",
+                                        text_color=f"#0ff",
                                         border_color="#0ef",
                                         border_width=1,
-                                        state="disabled",
+                                        state="normal",
                                         wrap="none")
 
         self.Report_Message = CT.CTkTextbox(master=self.Report_Frame_Right,
@@ -114,7 +114,7 @@ class App(CT.CTk):
                                      offvalue=False)
 
         self.URL_Field = CT.CTkEntry(master=self.Top_Frame,
-                                     width=615,
+                                     width=400,
                                      height=30,
                                      fg_color=f"{Soft_Green_Background}",
                                      text_color="#ff0",
@@ -139,6 +139,32 @@ class App(CT.CTk):
                                        text_color="#f00",
                                        button_color="#fff")
 
+
+        def Verify() -> None:
+            URL: str = self.URL_Field.get()
+            URL: str = URL.strip()
+            self.View_Panel.delete("0.0", "end")
+
+            if URL.find("https://www.youtube.com/watch?v=") == 0:
+                self.View_Panel.insert(CT.END, "Valid URL\n")
+                if modules.Verify(URL) == "Found":
+                    self.View_Panel.insert(CT.END, "This Channel has been detected on the list\n no matter what happens or what he says\n do NOT trust him in any ocasion\n\n<The Report Feature is still being developed>")
+                else:
+                    self.View_Panel.insert(CT.END, "Channel Not found in the list\n Be Careful Anyway")
+            else:
+                self.View_Panel.insert(CT.END, "Invalid URL: must be similar to that one: https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+        self.Verify_Button = CT.CTkButton(master=self.Top_Frame,
+                                          width=50,
+                                          height=30,
+                                          corner_radius=3,
+                                          fg_color=f"{Black}",
+                                          text="Verify",
+                                          text_color=f"{Neon_Green}",
+                                          border_color="#ff0",
+                                          hover_color="#0aa",
+                                          command=Verify)
+
         def Report() -> None:
             URL: str = self.URL_Field.get()
             URL: str = URL.strip()
@@ -157,15 +183,6 @@ class App(CT.CTk):
             else:
                 return print("Invalid URL")
 
-        self.View_Button = CT.CTkButton(master=self.Top_Frame,
-                                        width=50,
-                                        height=25,
-                                        corner_radius=3,
-                                        fg_color=f"{Soft_Green_Background}",
-                                        text="View",
-                                        text_color=f"{Neon_Green}",
-                                        hover_color=f"{Black}")
-
         self.Report_Button = CT.CTkButton(master=self.Report_Frame_Left,
                                           width=50,
                                           height=25,
@@ -181,6 +198,7 @@ class App(CT.CTk):
         self.Top_Frame.place(x=1, y=1)
         self.Listener.place(x=1, y=1)
         self.URL_Field.place(x=100, y=1)
+        self.Verify_Button.place(x=660, y=1)
         self.Tabs.place(x=1, y=40)
 
         # View tab widgets ====================================================
