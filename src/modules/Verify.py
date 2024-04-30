@@ -4,7 +4,7 @@ import requests
 
 def Verify(YT_URL: str) -> str:
     CH_ID, VID_ID, CH_Name = GetChannel(YT_URL)
-    CH_ID: str = CH_ID[:-1]
+    CH_ID: str = CH_ID
     response = requests.get("https://github.com/Incrypters/YT-ScamDatabase/blob/main/Scam_IDs.JSON")
     response.close()
 
