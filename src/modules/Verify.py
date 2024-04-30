@@ -13,7 +13,9 @@ def Verify(YT_URL: str) -> str:
 
         if line > 0 and Data[line].startswith("UC") and Data[line].endswith(","):
 
-            if Data[line].find(CH_ID) != -1:
+            if Data[line][0:24] == CH_ID:
+                print(CH_ID)
+                print("The Line: ", Data[line])
                 return "Found"
             else:
                 continue

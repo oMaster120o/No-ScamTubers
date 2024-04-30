@@ -84,7 +84,7 @@ class App(CT.CTk):
         self.View_Panel = CT.CTkTextbox(master=self.Tabs.tab("View"),
                                         width=700,
                                         height=270,
-                                        fg_color=f"{Soft_Green_Background}",
+                                        fg_color="#000100100",
                                         text_color=f"#0ff",
                                         border_color="#0ef",
                                         border_width=1,
@@ -145,10 +145,19 @@ class App(CT.CTk):
             URL: str = URL.strip()
             self.View_Panel.delete("0.0", "end")
 
+            self.View_Panel.configure(border_color="#0ef")
+            self.View_Panel.configure(fg_color="#000100100")
+            self.View_Panel.configure(text_color="#0ff")
+
             if URL.find("https://www.youtube.com/watch?v=") == 0:
                 self.View_Panel.insert(CT.END, "Valid URL\n")
+
                 if modules.Verify(URL) == "Found":
                     self.View_Panel.insert(CT.END, "This Channel has been detected on the list\n no matter what happens or what he says\n do NOT trust him in any ocasion\n\n<The Report Feature is still being developed>")
+                    self.View_Panel.configure(border_color="#f00")
+                    self.View_Panel.configure(fg_color="#100000000")
+                    self.View_Panel.configure(text_color="#f00")
+                    
                 else:
                     self.View_Panel.insert(CT.END, "Channel Not found in the list\n Be Careful Anyway")
             else:
