@@ -1,5 +1,5 @@
 # No-ScamTubbers  
-This tool has been created as a **personnal project** and is **still being developed**.  
+This tool has been created as a **personal project** and is **still being developed**.  
 A Huge thanks to [Incrypters](https://github.com/incrypters) who helped me build this and is providing the list of potential ScamTubers.  
 
 As me and many others have noticed, the YouTube platform is filled with Scammers and Malware spreaders, so me and Incrypters have been working together to develop something to prevent people from falling on the baits of the platform, and also for personall use.
