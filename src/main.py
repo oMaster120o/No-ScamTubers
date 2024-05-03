@@ -1,6 +1,7 @@
 import customtkinter as CT
 import modules
 import multiprocessing
+from os import path, makedirs
 from time import sleep
 from modules.Listener import Listen, StopListen
 
@@ -9,6 +10,9 @@ global Window_Height
 
 Window_Width = 720
 Window_Height = 356
+
+if not path.exists("./user/report/"):
+    makedirs("./user/report/")
 
 
 # Colors ====================================================================
