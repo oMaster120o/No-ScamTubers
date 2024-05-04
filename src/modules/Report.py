@@ -1,10 +1,12 @@
 import json
 from os import remove, rename
+from modules.Sender import SendReport
 
 report_path: str = "./user/report/"
 
 Hazard_Float: list[float] = [0.0, 0.75, 1.5, 2.25, 3]
 Hazard: list[str] = ["low", "moderate", "high", "insane", "EXTREME"]
+
 
 def ReportChannel(Channel_ID: str,
                   Video_ID: str,
@@ -38,12 +40,12 @@ def ReportChannel(Channel_ID: str,
         json.dump(Report_File, report)
         report.close()
 
-    rename(f"./{Channel_Name}.json", f"{report_path}{Channel_Name}.json")
     try:
+        rename(f"./{Channel_Name}.json", f"{report_path}{Channel_Name}.json")
         print("Report Created")
+        SendReport(File_Name=Channel_Name)
     except Exception:
         print(Exception, "This Report Already Exists\n")
         remove(f"./{Channel_Name}.json")
     finally:
         print("Report Script finished\n")
-        return
