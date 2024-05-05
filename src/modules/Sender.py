@@ -2,7 +2,7 @@ from socket import socket, AF_INET, SOCK_STREAM
 
 report_path = "./user/report/"
 IP: str = ""
-PORT: int = 0
+PORT: int = 
 
 
 def SendReport(File_Name: str) -> str:
