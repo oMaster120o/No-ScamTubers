@@ -1,6 +1,5 @@
 import json
 from os import remove, rename
-from modules.Sender import SendReport
 
 report_path: str = "./user/report/"
 
@@ -43,7 +42,6 @@ def ReportChannel(Channel_ID: str,
     try:
         rename(f"./{Channel_Name}.json", f"{report_path}{Channel_Name}.json")
         print("Report Created")
-        SendReport(File_Name=Channel_Name)
     except Exception:
         print(Exception, "This Report Already Exists\n")
         remove(f"./{Channel_Name}.json")
