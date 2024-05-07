@@ -104,7 +104,9 @@ class App(CT.CTk):
                                      fg_color=f"{Soft_Green_Background}",
                                      text_color="#ff0",
                                      border_width=1,
-                                     border_color="#ff0")
+                                     border_color="#ff0",
+                                     placeholder_text="https://www.youtube.com/watch?v=example",
+                                     placeholder_text_color="#f00")
 
         self.Is_Scam = CT.CTkSwitch(master=self.Report_Frame_Left,
                                     width=30,
@@ -189,12 +191,13 @@ class App(CT.CTk):
 
         # Render Widgets ======================================================
         self.Top_Frame.place(x=1, y=1)
-        self.URL_Field.place(x=100, y=1)
+        self.URL_Field.place(x=1, y=1)
         self.Verify_Button.place(x=660, y=1)
         self.Tabs.place(x=1, y=40)
 
         # View tab widgets ====================================================
         self.View_Panel.place(x=1, y=1)
+
         # Report tab widgets ==================================================
         self.Report_Frame_Left.place(x=1, y=1)
         self.Report_Frame_Right.place(x=120, y=1)
