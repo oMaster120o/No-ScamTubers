@@ -1,9 +1,6 @@
 import customtkinter as CT
 import modules
-import multiprocessing
 from os import path, makedirs
-from time import sleep
-from modules.Listener import Listen, StopListen
 
 global Window_Width
 global Window_Height
@@ -33,9 +30,6 @@ class App(CT.CTk):
         self.geometry(f"{Window_Width}x{Window_Height}")
         self.minsize(Window_Width, Window_Height)
         self.maxsize(Window_Width, Window_Height)
-
-        global ListenerSwitch
-        ListenerSwitch = CT.StringVar(value=False)
 
     # Widgets ================================================================
         self.Tabs = CT.CTkTabview(master=self,
@@ -89,7 +83,7 @@ class App(CT.CTk):
                                         width=700,
                                         height=270,
                                         fg_color="#000100100",
-                                        text_color=f"#0ff",
+                                        text_color="#0ff",
                                         border_color="#0ef",
                                         border_width=1,
                                         state="normal",
@@ -103,19 +97,6 @@ class App(CT.CTk):
                                             wrap="none",
                                             border_width=1,
                                             border_color="#ff0")
-
-        self.Listener = CT.CTkSwitch(master=self.Top_Frame,
-                                     width=30,
-                                     height=29,
-                                     fg_color="#f00",
-                                     progress_color=f"{Neon_Green}",
-                                     button_color="#fff",
-                                     text="Listener",
-                                     text_color="#fff",
-                                     variable=ListenerSwitch,
-                                     command=ListenerState,
-                                     onvalue=True,
-                                     offvalue=False)
 
         self.URL_Field = CT.CTkEntry(master=self.Top_Frame,
                                      width=400,
@@ -143,7 +124,6 @@ class App(CT.CTk):
                                        text_color="#f00",
                                        button_color="#fff")
 
-
         def Verify() -> None:
             URL: str = self.URL_Field.get()
             URL: str = URL.strip()
@@ -161,7 +141,7 @@ class App(CT.CTk):
                     self.View_Panel.configure(border_color="#f00")
                     self.View_Panel.configure(fg_color="#100000000")
                     self.View_Panel.configure(text_color="#f00")
-                    
+
                 else:
                     self.View_Panel.insert(CT.END, "Channel Not found in the list\n Be Careful Anyway")
             else:
@@ -209,7 +189,6 @@ class App(CT.CTk):
 
         # Render Widgets ======================================================
         self.Top_Frame.place(x=1, y=1)
-        self.Listener.place(x=1, y=1)
         self.URL_Field.place(x=100, y=1)
         self.Verify_Button.place(x=660, y=1)
         self.Tabs.place(x=1, y=40)
@@ -231,33 +210,5 @@ def main() -> None:
     app.mainloop()
 
 
-# Backend Funcions ==========================================================
-def ListenerSwitcher(Enabled: str):
-    global ProcessListen
-    global ProcessListenerShutdown
-
-    if Enabled == "1":
-        ProcessListen.start()
-    else:
-        ProcessListenerShutdown.start()
-        sleep(1)
-        if ProcessListen.is_alive:
-            ProcessListen.terminate()
-
-        if ProcessListenerShutdown.is_alive():
-            ProcessListenerShutdown.terminate()
-
-# Those two are new processes that do the same thing as the ones in the global=
-# But they are not the same, and shouldn't, unless you want to break it e-e ===
-        ProcessListen = multiprocessing.Process(target=Listen)
-        ProcessListenerShutdown = multiprocessing.Process(target=StopListen)
-
-
-def ListenerState() -> None:
-    ListenerSwitcher(ListenerSwitch.get())
-
-
 if __name__ == "__main__":
-    ProcessListen = multiprocessing.Process(target=Listen)
-    ProcessListenerShutdown = multiprocessing.Process(target=StopListen)
     main()
