@@ -19,7 +19,7 @@ This tool has **only been created and tested on Linux Mint Xfce** (Latest Versio
   
 **I strongly recommend you reading all the code, yes, everything and make sure you know what this tool does in the minimum details**.  
 It is recommended that you download the full project the way it is.  
-Run it **DIRECTLY* on the **main.py** file, **otherwise it will break**.  
+Run it **DIRECTLY** on the **main.py** file, **otherwise it will break**.  
 
 ## Considerations:  
 **Don't** spam the buttons, especially on the Report Tab as it will make .json reports in one of the project sub-directories.
