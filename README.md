@@ -21,10 +21,10 @@ This tool may work on Windows but i personally  only tested it on Linux Mint Xfc
 It is recommended that you download the full project the way it is.  
   
 clone the repo and run:  
-``git clone https://github.com/oMaster120o/No-ScamTubers``
+``git clone https://github.com/oMaster120o/No-ScamTubers.git``
   
-Run it **DIRECTLY** on the **main.py** directory **otherwise it will break**.  
+Run it **DIRECTLY** on the directory the **main.py** is at **otherwise it will break**.  
 
 ## Considerations:  
   
-Don'
+Don't trust any YouTuber flagged as dangerous.
