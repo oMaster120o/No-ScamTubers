@@ -8,7 +8,7 @@ As me and many others have noticed, the YouTube platform is filled with Scammers
 if you encounter any ScamTuber video that is not present in the list, feel free to report it on [Incrypters Discord Server](https://github.com/Incrypters/YT-ScamDatabase)**.
   
 ## Compatibility  
-This tool has **only been created and tested on Linux Mint Xfce** (Latest Version Ubuntu based).  
+This tool may work on Windows but i personally  only tested it on Linux Mint Xfce** (Latest Version Ubuntu based).  
   
 **required:   
   Python 3+  
@@ -19,8 +19,12 @@ This tool has **only been created and tested on Linux Mint Xfce** (Latest Versio
   
 **I strongly recommend you reading all the code, yes, everything and make sure you know what this tool does in the minimum details**.  
 It is recommended that you download the full project the way it is.  
-Run it **DIRECTLY** on the **main.py** file, **otherwise it will break**.  
+  
+clone the repo and run:  
+``git clone https://github.com/oMaster120o/No-ScamTubers``
+  
+Run it **DIRECTLY** on the **main.py** directory **otherwise it will break**.  
 
 ## Considerations:  
-**Don't** spam the buttons, especially on the Report Tab as it will make .json reports in one of the project sub-directories.
-**Read the code and understand what the tool does**  
+  
+Don'
